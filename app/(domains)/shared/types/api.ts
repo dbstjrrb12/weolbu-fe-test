@@ -1,5 +1,7 @@
 import { Session } from './auth';
+import { Course } from './class';
 
+/** Auth API */
 export interface SignupRequest {
   email: string;
   password: string;
@@ -30,3 +32,24 @@ export interface SigninRequest {
 }
 
 export type SignInResponse = Session;
+
+/** Class API */
+export type CourseSort = 'recent' | 'popular' | 'rate';
+
+export interface GetCoursesRequest {
+  page: number;
+  size: number;
+  sort: CourseSort;
+}
+
+export interface GetCoursesResponse {
+  content: Course[];
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+  };
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+}
