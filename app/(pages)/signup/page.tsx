@@ -15,7 +15,7 @@ import MobileLayout from '../../(domains)/shared/components/MobileLayout';
 import Form from '../../(domains)/shared/components/Form';
 import { setClientCookie } from '../../(domains)/shared/utils/cookie/clientCookieHelper';
 import { SESSION_COOKIE_NAME } from '../../(domains)/shared/constants/auth';
-import CTAButtons from '../../(domains)/shared/components/ui/CTAButtons';
+import CTAButtons from '../../(domains)/shared/components/CTAButtons';
 
 export default function SignupPage() {
   const { back, replace } = useRouter();
