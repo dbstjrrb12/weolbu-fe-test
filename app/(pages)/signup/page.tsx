@@ -15,6 +15,7 @@ import MobileLayout from '../../(domains)/shared/components/MobileLayout';
 import Form from '../../(domains)/shared/components/Form';
 import { setClientCookie } from '../../(domains)/shared/utils/cookie/clientCookieHelper';
 import { SESSION_COOKIE_NAME } from '../../(domains)/shared/constants/auth';
+import CTAButtons from '../../(domains)/shared/components/ui/CTAButtons';
 
 export default function SignupPage() {
   const { back, replace } = useRouter();
@@ -64,6 +65,7 @@ export default function SignupPage() {
   const submit = async (signUpData: SignupSchema) => {
     signup(signUpData, {
       onSuccess: (data) => {
+        console.log(data);
         if (data) {
           signin({ email: data.email, password: signUpData.password });
         }
@@ -72,50 +74,66 @@ export default function SignupPage() {
   };
 
   return (
-    <MobileLayout title="회원가입" left={<MobileHeader.Back onClick={back} />}>
-      <Form onSubmit={handleSubmit(submit)}>
-        <Form.Input
-          label="이메일"
-          placeholder="이메일을 입력해주세요"
-          error={!!errors.email}
-          helperText={errors.email?.message}
-          {...register('email')}
+    <MobileLayout
+      header={
+        <MobileHeader
+          left={<MobileHeader.Back onClick={back} />}
+          title="회원가입"
         />
-        <Form.Input
-          label="비밀번호"
-          type="password"
-          placeholder="비밀번호를 입력해주세요"
-          error={!!errors.password}
-          helperText={errors.password?.message}
-          {...register('password')}
+      }
+      content={
+        <Form onSubmit={handleSubmit(submit)}>
+          <Form.Input
+            label="이메일"
+            placeholder="이메일을 입력해주세요"
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            {...register('email')}
+          />
+          <Form.Input
+            label="비밀번호"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            {...register('password')}
+          />
+          <Form.Input
+            label="이름"
+            placeholder="이름을 입력해주세요"
+            error={!!errors.name}
+            helperText={errors.name?.message}
+            {...register('name')}
+          />
+          <Form.Input
+            label="전화번호"
+            placeholder="전화번호를 입력해주세요"
+            error={!!errors.phone}
+            helperText={errors.phone?.message}
+            {...register('phone')}
+          />
+          <Form.Select
+            label="회원 유형"
+            options={[
+              { value: 'STUDENT', label: '학생' },
+              { value: 'INSTRUCTOR', label: '강사' },
+            ]}
+            error={!!errors.role}
+            helperText={errors.role?.message}
+            {...register('role')}
+          />
+        </Form>
+      }
+      footer={
+        <CTAButtons
+          mainText="회원가입"
+          mainProps={{
+            type: 'submit',
+            loading: isPending,
+            onClick: handleSubmit(submit),
+          }}
         />
-        <Form.Input
-          label="이름"
-          placeholder="이름을 입력해주세요"
-          error={!!errors.name}
-          helperText={errors.name?.message}
-          {...register('name')}
-        />
-        <Form.Input
-          label="전화번호"
-          placeholder="전화번호를 입력해주세요"
-          error={!!errors.phone}
-          helperText={errors.phone?.message}
-          {...register('phone')}
-        />
-        <Form.Select
-          label="회원 유형"
-          options={[
-            { value: 'STUDENT', label: '학생' },
-            { value: 'INSTRUCTOR', label: '강사' },
-          ]}
-          error={!!errors.role}
-          helperText={errors.role?.message}
-          {...register('role')}
-        />
-
-        <Form.Submit loading={isPending}>회원가입</Form.Submit>
-      </Form>
-    </MobileLayout>
+      }
+    />
   );
 }
