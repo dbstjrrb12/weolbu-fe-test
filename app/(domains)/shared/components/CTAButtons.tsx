@@ -4,7 +4,7 @@ import Button from './ui/Button';
 
 interface CTAButtonsProps {
   mainText: string;
-  mainProps: Omit<ComponentProps<typeof Button>, 'children'>;
+  mainProps?: Omit<ComponentProps<typeof Button>, 'children'>;
   subText?: string;
   subProps?: Omit<ComponentProps<typeof Button>, 'children'>;
   className?: string;
@@ -28,11 +28,8 @@ export default function CTAButtons({
       {subText && (
         <Button
           {...subProps}
-          className={cn(
-            'flex-1',
-            'bg-white border border-gray-900 text-gray-900',
-            subProps?.className,
-          )}
+          variant="outline"
+          className={cn('flex-1', subProps?.className)}
         >
           {subText}
         </Button>
