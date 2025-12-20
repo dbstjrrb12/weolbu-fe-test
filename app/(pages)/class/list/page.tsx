@@ -1,22 +1,23 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useForm, useController } from 'react-hook-form';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 
-import MobileLayout from '../../../(domains)/shared/components/MobileLayout';
-import MobileHeader from '../../../(domains)/shared/components/MobileHeader';
 import CourseCard from '@/app/(domains)/class/components/list/CourseCard';
-import ClassQueryHelper from '@/app/(domains)/shared/api/query/class';
-import SortGroup from '@/app/(domains)/shared/components/SortGroup';
-import List from '@/app/(domains)/shared/components/ui/List';
-import Observer from '@/app/(domains)/shared/components/Observer';
-import type { CourseSort } from '@/app/(domains)/shared/types/api';
 import CTAButtons from '@/app/(domains)/shared/components/CTAButtons';
+import ClassQueryHelper from '@/app/(domains)/shared/api/query/class';
+import List from '@/app/(domains)/shared/components/ui/List';
+import MobileHeader from '../../../(domains)/shared/components/MobileHeader';
+import MobileLayout from '../../../(domains)/shared/components/MobileLayout';
+import Observer from '@/app/(domains)/shared/components/Observer';
 import SessionHelper from '@/app/(domains)/shared/utils/sessionHelper';
+import SortGroup from '@/app/(domains)/shared/components/SortGroup';
 import { cn } from '@/app/(domains)/shared/utils/common';
+import type { CourseSort } from '@/app/(domains)/shared/types/api';
 import type { Course } from '@/app/(domains)/shared/types/class';
+import useLogout from '@/app/(domains)/shared/hooks/useLogout';
 import useToast from '@/app/(domains)/shared/components/hooks/useToast';
 
 interface FormData {
@@ -27,8 +28,8 @@ export default function ClassListPage() {
   const [sort, setSort] = useState<CourseSort>('recent');
 
   const { back, push } = useRouter();
-
   const { showToast } = useToast();
+  const { logout } = useLogout();
 
   const { control, reset, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -101,6 +102,7 @@ export default function ClassListPage() {
         <MobileHeader
           left={<MobileHeader.Back onClick={back} />}
           title="수강 목록"
+          right={<MobileHeader.Logout onClick={logout} />}
         />
       }
       content={
