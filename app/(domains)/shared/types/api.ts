@@ -1,3 +1,5 @@
+import { Session } from './auth';
+
 export interface SignupRequest {
   email: string;
   password: string;
@@ -21,3 +23,10 @@ export interface SignUpError {
   code: SignUpErrorCode;
   message: string;
 }
+
+export interface SigninRequest {
+  email: string;
+  password: string;
+}
+
+export type SignInResponse = Session;
