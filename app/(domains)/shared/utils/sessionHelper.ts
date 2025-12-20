@@ -1,19 +1,20 @@
+import { SESSION_COOKIE_NAME } from '../constants/auth';
 import type { Session } from '../types/auth';
+import { getClientCookie } from './cookie/clientCookieHelper';
 
 const SessionHelper = {
-  getSession: (): Session => {
-    // TODO: 쿠키에서 세션 참조 구현
-    return {
-      accessToken: '',
-      tokenType: 'Bearer',
-      user: {
-        id: 1,
-        email: 'user@example.com',
-        name: '홍길동',
-        phone: '010-1234-5678',
-        role: 'STUDENT',
-      },
-    };
+  getSession: (): Session | null => {
+    const session = getClientCookie(SESSION_COOKIE_NAME);
+
+    return session ? (JSON.parse(session) as Session) : null;
+  },
+  getAccessToken: (): string | null => {
+    const session = SessionHelper.getSession();
+    return session?.accessToken || null;
+  },
+  getRole: (): string | null => {
+    const session = SessionHelper.getSession();
+    return session?.user.role || null;
   },
 };
 

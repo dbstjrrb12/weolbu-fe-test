@@ -11,10 +11,10 @@ const httpClient = axios.create({
 });
 
 httpClient.interceptors.request.use((config) => {
-  const { accessToken, tokenType } = SessionHelper.getSession();
+  const session = SessionHelper.getSession();
 
-  if (accessToken) {
-    config.headers.Authorization = `${tokenType} ${accessToken}`;
+  if (session?.accessToken) {
+    config.headers.Authorization = `${session.tokenType ?? 'Bearer'} ${session.accessToken}`;
   }
 
   return config;
