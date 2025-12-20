@@ -14,7 +14,7 @@ import CTAButtons from '../../(domains)/shared/components/CTAButtons';
 import useLogin from '@/app/(domains)/shared/hooks/useLogin';
 
 export default function SigninPage() {
-  const { back, replace } = useRouter();
+  const { push } = useRouter();
 
   const { mutate: signin, isPending } = useLogin();
 
@@ -68,7 +68,7 @@ export default function SigninPage() {
           subText="회원가입"
           subProps={{
             onClick: () => {
-              replace('/signup');
+              push('/signup');
             },
           }}
         />
