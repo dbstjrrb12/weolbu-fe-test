@@ -6,6 +6,6 @@ export interface Session {
     email: string;
     name: string;
     phone: string;
-    role: string;
+    role: 'STUDENT' | 'INSTRUCTOR';
   };
 }

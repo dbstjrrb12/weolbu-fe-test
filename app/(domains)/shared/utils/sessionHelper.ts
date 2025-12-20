@@ -12,7 +12,7 @@ const SessionHelper = {
     const session = SessionHelper.getSession();
     return session?.accessToken || null;
   },
-  getRole: (): string | null => {
+  getRole: () => {
     const session = SessionHelper.getSession();
     return session?.user.role || null;
   },
