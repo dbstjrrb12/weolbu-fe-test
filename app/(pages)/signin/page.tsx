@@ -37,12 +37,7 @@ export default function SigninPage() {
 
   return (
     <MobileLayout
-      header={
-        <MobileHeader
-          left={<MobileHeader.Back onClick={back} />}
-          title="로그인"
-        />
-      }
+      header={<MobileHeader title="로그인" />}
       content={
         <Form>
           <Form.Input

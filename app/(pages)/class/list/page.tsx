@@ -100,7 +100,6 @@ export default function ClassListPage() {
     <MobileLayout
       header={
         <MobileHeader
-          left={<MobileHeader.Back onClick={back} />}
           title="수강 목록"
           right={<MobileHeader.Logout onClick={logout} />}
         />
