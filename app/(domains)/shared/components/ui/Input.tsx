@@ -1,5 +1,6 @@
 import { type ComponentProps, useId } from 'react';
-import { cn } from '../../utils/common';
+
+import LabelFrame from './LabelFrame';
 
 interface InputProps extends ComponentProps<'input'> {
   id?: string;
@@ -19,31 +20,18 @@ export default function Input({
   const inputId = id ?? useId();
 
   return (
-    <div className={cn('flex flex-col gap-1', className)}>
-      {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-gray-600">
-          {label}
-        </label>
-      )}
-
-      <div className="flex justify-between border border-gray-200 rounded-md p-2 focus-within:border-gray-900">
-        <input
-          type="text"
-          id={inputId}
-          className="w-full outline-none"
-          {...props}
-        />
-      </div>
-
-      {helperText && (
-        <span
-          className={cn('text-xs text-gray-500', {
-            'text-red-500': error,
-          })}
-        >
-          {helperText}
-        </span>
-      )}
-    </div>
+    <LabelFrame
+      label={label}
+      htmlFor={inputId}
+      helperText={helperText}
+      error={error}
+    >
+      <input
+        type="text"
+        id={inputId}
+        className="w-full outline-none"
+        {...props}
+      />
+    </LabelFrame>
   );
 }
