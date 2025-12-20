@@ -17,6 +17,7 @@ import CTAButtons from '@/app/(domains)/shared/components/CTAButtons';
 import SessionHelper from '@/app/(domains)/shared/utils/sessionHelper';
 import { cn } from '@/app/(domains)/shared/utils/common';
 import type { Course } from '@/app/(domains)/shared/types/class';
+import useToast from '@/app/(domains)/shared/components/hooks/useToast';
 
 interface FormData {
   selectedCourses: Map<number, boolean>;
@@ -26,6 +27,8 @@ export default function ClassListPage() {
   const [sort, setSort] = useState<CourseSort>('recent');
 
   const { back, push } = useRouter();
+
+  const { showToast } = useToast();
 
   const { control, reset, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -49,7 +52,7 @@ export default function ClassListPage() {
     ClassQueryHelper.enrollCourses({
       onSuccess: (data) => {
         if (data.failed.length > 0) {
-          window.alert('수강신청에 실패한 강좌가 있습니다');
+          showToast('수강신청에 실패한 강좌가 있습니다');
         }
 
         reset();
@@ -75,7 +78,7 @@ export default function ClassListPage() {
     const selectedCourses = new Map(field.value);
 
     if (course.isFull) {
-      window.alert('이미 마감된 강좌입니다');
+      showToast('이미 마감된 강좌입니다');
       return;
     }
 

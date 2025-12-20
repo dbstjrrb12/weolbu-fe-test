@@ -16,8 +16,10 @@ import Form from '../../(domains)/shared/components/Form';
 import { setClientCookie } from '../../(domains)/shared/utils/cookie/clientCookieHelper';
 import { SESSION_COOKIE_NAME } from '../../(domains)/shared/constants/auth';
 import CTAButtons from '../../(domains)/shared/components/CTAButtons';
+import useToast from '@/app/(domains)/shared/components/hooks/useToast';
 
 export default function SignupPage() {
+  const { showToast } = useToast();
   const { back, replace } = useRouter();
 
   const { mutate: signin } = useMutation(
@@ -29,7 +31,7 @@ export default function SignupPage() {
       onError: (error) => {
         if (isAxiosError(error)) {
           const data = error.response?.data;
-          window.alert(data.message);
+          showToast(data.message);
         }
       },
     }),
@@ -40,7 +42,7 @@ export default function SignupPage() {
       onError: (error) => {
         if (isAxiosError(error)) {
           const data = error.response?.data;
-          window.alert(data.message);
+          showToast(data.message);
         }
       },
     }),
@@ -65,7 +67,6 @@ export default function SignupPage() {
   const submit = async (signUpData: SignupSchema) => {
     signup(signUpData, {
       onSuccess: (data) => {
-        console.log(data);
         if (data) {
           signin({ email: data.email, password: signUpData.password });
         }
@@ -82,7 +83,7 @@ export default function SignupPage() {
         />
       }
       content={
-        <Form onSubmit={handleSubmit(submit)}>
+        <Form>
           <Form.Input
             label="이메일"
             placeholder="이메일을 입력해주세요"

@@ -15,11 +15,14 @@ import MobileLayout from '@/app/(domains)/shared/components/MobileLayout';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formatPrice } from '@/app/(domains)/shared/utils/common';
 import ClassQueryHelper from '@/app/(domains)/shared/api/query/class';
+import useToast from '@/app/(domains)/shared/components/hooks/useToast';
 
 export default function ClassRegisterPage() {
   const queryClient = useQueryClient();
 
   const { back, push } = useRouter();
+
+  const { showToast } = useToast();
 
   const {
     register,
@@ -46,13 +49,15 @@ export default function ClassRegisterPage() {
   const { mutate: registeCourse, isPending } = useMutation(
     ClassQueryHelper.registeCourse({
       onSuccess: () => {
+        showToast('강좌 등록에 성공했습니다');
         queryClient.invalidateQueries({ queryKey: ['courses'] });
+
         push('/class/list');
       },
       onError: (error) => {
         if (isAxiosError(error)) {
           const data = error.response?.data;
-          window.alert(data?.message ?? '등록에 실패했습니다');
+          showToast(data?.message ?? '등록에 실패했습니다');
         }
       },
     }),
