@@ -53,3 +53,13 @@ export interface GetCoursesResponse {
   first: boolean;
   last: boolean;
 }
+
+export interface RegisteCourseRequest {
+  title: string;
+  description: string;
+  instructorName: string;
+  maxStudents: number;
+  price: number;
+}
+
+export type RegisteCourseResponse = Course;

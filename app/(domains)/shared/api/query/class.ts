@@ -1,8 +1,13 @@
-import type { InfiniteData } from '@tanstack/react-query';
+import type { InfiniteData, UseMutationOptions } from '@tanstack/react-query';
 
 import ClassApi from '../class';
 import type { GetCoursesQueryOptions } from '../../types/query';
-import type { CourseSort, GetCoursesResponse } from '../../types/api';
+import type {
+  CourseSort,
+  GetCoursesResponse,
+  RegisteCourseRequest,
+  RegisteCourseResponse,
+} from '../../types/api';
 
 const ClassQueryHelper = {
   getCourses: (
@@ -25,6 +30,20 @@ const ClassQueryHelper = {
     },
     select: (data: InfiniteData<GetCoursesResponse>) => {
       return data.pages.flatMap((page) => page.content);
+    },
+    ...options,
+  }),
+  registeCourse: (
+    options?: UseMutationOptions<
+      RegisteCourseResponse,
+      Error,
+      RegisteCourseRequest
+    >,
+  ) => ({
+    mutationKey: ['registeCourse'],
+    mutationFn: async (data: RegisteCourseRequest) => {
+      const response = await ClassApi.registeCourse(data);
+      return response.data;
     },
     ...options,
   }),

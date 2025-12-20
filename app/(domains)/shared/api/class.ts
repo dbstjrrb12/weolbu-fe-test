@@ -1,7 +1,12 @@
 import type { AxiosResponse } from 'axios';
 
 import httpClient from '../utils/httpClient';
-import type { GetCoursesRequest, GetCoursesResponse } from '../types/api';
+import type {
+  GetCoursesRequest,
+  GetCoursesResponse,
+  RegisteCourseRequest,
+  RegisteCourseResponse,
+} from '../types/api';
 
 const ClassApi = {
   getCourses: async (
@@ -12,6 +17,11 @@ const ClassApi = {
     return httpClient.get(
       `/api/courses?page=${page}&size=${size}&sort=${sort}`,
     );
+  },
+  registeCourse: async (
+    data: RegisteCourseRequest,
+  ): Promise<AxiosResponse<RegisteCourseResponse>> => {
+    return httpClient.post('/api/courses', data);
   },
 };
 
