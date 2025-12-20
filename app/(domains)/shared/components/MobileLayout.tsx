@@ -21,7 +21,7 @@ export default function MobileLayout({
     <div className={cn('flex flex-col h-screen', className)}>
       <MobileHeader left={left} title={title} right={right} />
 
-      <main className="flex-1 overflow-y-auto h-0">{children}</main>
+      <main className="flex-1 overflow-y-auto h-0 px-5">{children}</main>
     </div>
   );
 }
