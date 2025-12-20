@@ -8,7 +8,7 @@ import { SESSION_COOKIE_NAME } from './app/(domains)/shared/constants/auth';
 import { Session } from './app/(domains)/shared/types/auth';
 
 const withAuthRoutes = ['/class/list', '/class/regist'];
-const withoutAuthRoutes = ['/signup'];
+const withoutAuthRoutes = ['/signup', '/signin'];
 
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const session = await getServerCookie(SESSION_COOKIE_NAME);
@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const requestUrl = request.nextUrl.pathname;
 
   if (!session && withAuthRoutes.includes(requestUrl)) {
-    return NextResponse.redirect(new URL('/signup', request.url));
+    return NextResponse.redirect(new URL('/signin', request.url));
   }
 
   if (session && withoutAuthRoutes.includes(requestUrl)) {
