@@ -4,6 +4,8 @@ import ClassApi from '../class';
 import type { GetCoursesQueryOptions } from '../../types/query';
 import type {
   CourseSort,
+  EnrollCoursesRequest,
+  EnrollCoursesResponse,
   GetCoursesResponse,
   RegisteCourseRequest,
   RegisteCourseResponse,
@@ -43,6 +45,20 @@ const ClassQueryHelper = {
     mutationKey: ['registeCourse'],
     mutationFn: async (data: RegisteCourseRequest) => {
       const response = await ClassApi.registeCourse(data);
+      return response.data;
+    },
+    ...options,
+  }),
+  enrollCourses: (
+    options?: UseMutationOptions<
+      EnrollCoursesResponse,
+      Error,
+      EnrollCoursesRequest
+    >,
+  ) => ({
+    mutationKey: ['enrollCourses'],
+    mutationFn: async (data: EnrollCoursesRequest) => {
+      const response = await ClassApi.enrollCourses(data);
       return response.data;
     },
     ...options,

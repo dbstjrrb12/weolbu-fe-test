@@ -63,3 +63,23 @@ export interface RegisteCourseRequest {
 }
 
 export type RegisteCourseResponse = Course;
+
+export interface EnrollCoursesRequest {
+  courseIds: number[];
+}
+
+interface SuccessEnrollCourse {
+  enrollmentId: number;
+  courseId: number;
+  courseTitle: string;
+}
+
+interface FailedEnrollCourse {
+  courseId: number;
+  reason: string;
+}
+
+export interface EnrollCoursesResponse {
+  success: SuccessEnrollCourse[];
+  failed: FailedEnrollCourse[];
+}

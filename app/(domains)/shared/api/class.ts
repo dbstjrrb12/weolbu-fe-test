@@ -6,6 +6,8 @@ import type {
   GetCoursesResponse,
   RegisteCourseRequest,
   RegisteCourseResponse,
+  EnrollCoursesRequest,
+  EnrollCoursesResponse,
 } from '../types/api';
 
 const ClassApi = {
@@ -22,6 +24,11 @@ const ClassApi = {
     data: RegisteCourseRequest,
   ): Promise<AxiosResponse<RegisteCourseResponse>> => {
     return httpClient.post('/api/courses', data);
+  },
+  enrollCourses: async (
+    data: EnrollCoursesRequest,
+  ): Promise<AxiosResponse<EnrollCoursesResponse>> => {
+    return httpClient.post('/api/enrollments/batch', data);
   },
 };
 
