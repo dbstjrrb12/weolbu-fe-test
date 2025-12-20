@@ -6,7 +6,7 @@ interface ListProps extends ComponentProps<'ul'> {
 }
 
 export default function List({
-  dir = 'row',
+  dir = 'column',
   className,
   children,
   ...props
